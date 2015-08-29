@@ -20,19 +20,21 @@ local input = require "input"
 
 local test = {
     category    = 'basic',
-    description = "SPBs",
+    description = "SPBs and EPBs with IDB snaplen bigger than some, less than others",
 }
 
 
 function test:compile()
+    local idb0 = block.IDB(0, input.linktype.ETHERNET, 315, "eth0")
+
     self.blocks = {
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
             :addOption('comment', self.testname),
-        block.IDB(0, input.linktype.ETHERNET, 0, "eth0"),
-        block.SPB( input:getData(1) ),
-        block.SPB( input:getData(2) ),
-        block.SPB( input:getData(3) ),
-        block.SPB( input:getData(4) ),
+        idb0,
+        block.SPB( input:getData(1, 315) ),
+        block.SPB( input:getData(2, 315) ),
+        block.EPB( idb0, input:getData(3, 315) ),
+        block.EPB( idb0, input:getData(4, 315) ),
     }
 end
 

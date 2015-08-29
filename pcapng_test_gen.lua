@@ -108,6 +108,12 @@ local function get_file_path(test, directory)
 end
 
 
+-- create a sorted block name table, so we output the same description order each time
+local sorted_btypes = {}
+for n in pairs(Defines.blocks) do table.insert(sorted_btypes, n) end
+table.sort(sorted_btypes)
+
+
 local function describe_content(test)
     local summary, details = "\nBlock counts:\n", "\nBlock sequence: "
     local t = {}
@@ -120,8 +126,10 @@ local function describe_content(test)
     -- get rid of excess comma space at end
     details = string.sub(details, 1, string.len(details) - 2)
 
-    for name, count in pairs(t) do
-        summary = summary .. "\t" .. name .. ": " .. count .. "\n"
+    for _, name in ipairs(sorted_btypes) do
+        if t[name] then
+            summary = summary .. "\t" .. name .. ": " .. t[name] .. "\n"
+        end
     end
 
     return summary .. details
@@ -184,7 +192,7 @@ end
 -- main section
 --------------------------------------------------------------------------------
 
-local start_num, end_num = 1, 11
+local start_num, end_num = 1, 12
 
 
 if #args > 0 then

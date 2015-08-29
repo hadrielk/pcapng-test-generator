@@ -2,8 +2,8 @@ Description: EPBs with all options
 Category:    basic
 
 Block counts:
-	SHB: 1
-	IDB: 1
 	EPB: 2
+	IDB: 1
+	SHB: 1
 
 Block sequence: SHB, IDB, EPB, EPB
