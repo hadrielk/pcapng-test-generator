@@ -1,0 +1,3 @@
+#include pcapng and pcap files
+!*.pcap
+!*.pcapng
