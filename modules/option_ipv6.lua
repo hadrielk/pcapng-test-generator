@@ -73,7 +73,7 @@ local function pack(ip)
             end
         end
 
-        local start = 15 - #t
+        local start = 16 - #t
         for index, value in ipairs(t) do
             bytes[start + index] = value
         end

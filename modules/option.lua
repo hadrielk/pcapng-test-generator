@@ -29,6 +29,7 @@ local Option_mt = { __index = Option }
 
 
 function Option.new(otype, value)
+    assert(otype, "Not given an option type")
     local new_class = {  -- the new instance
         ["otype"]   = otype,
         ["code"]    = Defines:getOptionCode(otype),
@@ -61,6 +62,7 @@ end
 local opt_fmt = "I2 I2 c0 c0"
 
 function Option:pack()
+    self.value = self.value or ""
 
     local opt_len = string.len(self.value)
 
