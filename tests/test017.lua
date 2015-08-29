@@ -38,6 +38,7 @@ function test:compile()
         block.NRB()
             :addRecord('nrb_record_ipv4', "192.168.1.2", "example.com")
             :addRecord('nrb_record_ipv4', "192.168.1.2", "example.com")
+            :addRecord('nrb_record_ipv4', "192.168.1.8", "example.com")
             :addRecord('nrb_record_ipv6', "FC01:DEAD::BEEF", "example.com")
             :addRecord('nrb_record_ipv4', "10.1.2.3",    "example.org")
             :addRecord('nrb_record_ipv4', "192.168.1.2", "example.net")
@@ -46,9 +47,11 @@ function test:compile()
             :addOption('UNKNOWN_SPEC')
             :addOption('UNKNOWN_LOCAL', self.testname .. " NRB"),
         block.SPB( input:getData(1) ),
+        -- just an option, no records
         block.NRB()
             :addOption('comment', self.testname .. " empty NRB"),
         idb1,
+        -- empty one
         block.NRB(),
         block.EPB( idb0, input:getData(2), timestamp ),
         idb2,

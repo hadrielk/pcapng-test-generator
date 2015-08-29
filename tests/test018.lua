@@ -19,8 +19,8 @@ local input = require "input"
 
 
 local test = {
-    category    = 'basic',
-    description = "Empty - only SHB, multiple IDB and ISB",
+    category    = 'advanced',
+    description = "Duplicate ISBs with various options, intermixed in EPB/SPB",
 }
 
 
@@ -36,14 +36,38 @@ function test:compile()
             :addOption('comment', self.testname),
         idb0,
         idb1,
+
+        block.EPB( idb0, input:getData(1, 96), timestamp ),
         block.ISB(idb1, timestamp),
         block.ISB(idb0),
+        block.ISB(idb1, timestamp - 1000),
+
         idb2,
+
+        block.EPB( idb2, input:getData(2, 128), timestamp ),
+
         block.ISB(idb2, timestamp + 1000)
             :addOption( block.OptionFormat ('isb_starttime', "I4 I4", { timestamp:higher(), timestamp:lower() }) )
             :addOption( block.OptionFormat ('isb_endtime',   "I4 I4", { timestamp:higher(), (timestamp + 1000):lower() }) )
+            :addOption( block.OptionFormat ('isb_filteraccept', "E", UInt64(42)) )
             :addOption( block.OptionFormat ('isb_ifdrop',    "E", UInt64(10)) )
-            :addOption('comment', self.testname .. " ISB"),
+            :addOption('comment', self.testname .. " ISB-2"),
+
+        block.SPB( input:getData(3, 96) ),
+
+        block.ISB(idb0)
+            :addOption( block.OptionFormat ('isb_starttime', "I4 I4", { timestamp:higher(), timestamp:lower() }) )
+            :addOption( block.OptionFormat ('isb_endtime',   "I4 I4", { timestamp:higher(), (timestamp + 1000):lower() }) )
+            :addOption( block.OptionFormat ('isb_ifrecv',    "E", UInt64(100)) )
+            :addOption( block.OptionFormat ('isb_ifdrop',    "E", UInt64(1)) )
+            :addOption( block.OptionFormat ('isb_filteraccept', "E", UInt64(9)) )
+            :addOption( block.OptionFormat ('isb_osdrop',    "E", UInt64(42)) )
+            :addOption( block.OptionFormat ('isb_usrdeliv',  "E", UInt64(6)) )
+            :addOption('comment', self.testname .. " ISB-0"),
+
+        block.EPB( idb1, input:getData(5), timestamp + 3000 ),
+
+        block.ISB(idb0),
     }
 end
 
