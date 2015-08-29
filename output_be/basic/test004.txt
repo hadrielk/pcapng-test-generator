@@ -1,0 +1,9 @@
+Description: Two IDBs same linktype, different snaplen
+Category:    basic
+
+Block counts:
+	SHB: 1
+	IDB: 2
+	EPB: 4
+
+Block sequence: SHB, IDB, IDB, EPB, EPB, EPB, EPB
