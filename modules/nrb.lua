@@ -19,6 +19,7 @@ local pad     = Defines.pad
 local getPad  = Defines.getPad
 
 local Block      = require "block"
+local Option     = require "option"
 local OptionList = require "option_list"
 local OptionIPv4 = require "option_ipv4"
 local OptionIPv6 = require "option_ipv6"
@@ -46,14 +47,22 @@ end
 setmetatable( NRB, { __index = Block, __call = NRB.call } ) -- make it inherit from Block
 
 
+-- NRB Record strings have a null to terminate them, so we use this for that
+local zero = Struct.pack("B", 0)
+
+
 -- adds a Record entry (an Option object is used as a Record entry)
 function NRB:addRecord(otype, ip, str)
-    if type(otype) == 'nrb_record_ipv4' then
+    if str then
+        str = str .. zero
+    end
+
+    if otype == 'nrb_record_ipv4' then
         self.records:add( OptionIPv4(otype, ip, nil, str) )
-    elseif type(otype) == 'nrb_record_ipv6' then
+    elseif otype == 'nrb_record_ipv6' then
         self.records:add( OptionIPv6(otype, ip, str))
     else
-        self.records:add(otype)
+        self.records:add( Option(otype, ip) )
     end
     return self
 end

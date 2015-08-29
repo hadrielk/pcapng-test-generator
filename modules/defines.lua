@@ -92,6 +92,12 @@ Defines.options = {
     -- unknown
     ["UNKNOWN_SPEC"]   = 0x0123,
     ["UNKNOWN_LOCAL"]  = 0x8123,
+
+    -- these aren't actually option codes, but I'm re-using Options for NRB
+    -- Records, so I need this here
+    ["nrb_record_end"]  = 0,
+    ["nrb_record_ipv4"] = 1,
+    ["nrb_record_ipv6"] = 2,
 }
 
 Defines.endian = "<"
