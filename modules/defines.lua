@@ -36,7 +36,7 @@ Defines.blocks = {
     ["IRIG"] = 0x00000007,
     ["AFDX"] = 0x00000008,
     ["CB" ]  = 0x00000BAD,
-    ["PCB"]  = 0x40000BAD,
+    ["DCB"]  = 0x40000BAD,
     ["SHB"]  = 0x0A0D0D0A,
     -- these aren't actual block types - just the numbers I use for unknown blocks
     ["UNKNOWN_SPEC"]  = 0x01234567,

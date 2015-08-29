@@ -30,7 +30,7 @@ local CB_mt = { __index = CB }
 function CB.new(pen, data, do_not_copy)
     assert(pen, "Not given PEN number")
 
-    local new_class = Block.new(do_not_copy and 'PCB' or 'CB')
+    local new_class = Block.new(do_not_copy and 'DCB' or 'CB')
     new_class['pen']  = pen
     new_class['data'] = data
 

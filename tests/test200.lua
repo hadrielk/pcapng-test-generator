@@ -19,25 +19,22 @@ local input = require "input"
 
 
 local test = {
-    category    = 'basic',
-    description = "Empty - only SHB and CB/DCB",
+    category    = 'difficult',
+    description = "Empty - only SHB and IDB, but repeated so multiple SHB",
 }
-
-
-local pen1 = 32473  -- the official PEN for examples
-local pen2 = 36724  -- my PEN (the KRAP one)
 
 
 function test:compile()
     self.blocks = {
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
             :addOption('comment', self.testname),
-        block.CB(pen1, "an example Custom Block"),
-        block.CB(pen1, "an example Custom Block not to be copied", true)
-            :addOption('comment', self.testname .. " DCB"),
-        block.CB(pen2, "my Custom Block")
-            :addOption('comment', self.testname .. " CB"),
-        block.CB(pen2, "all your block are belong to us", true),
+        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
+        block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
+            :addOption('comment', self.testname),
+        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
+        block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
+            :addOption('comment', self.testname),
+        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
     }
 end
 
