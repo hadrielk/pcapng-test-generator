@@ -19,8 +19,8 @@ local input = require "input"
 
 
 local test = {
-    category    = 'advanced',
-    description = "Empty - only SHB and IDB, repeated",
+    category    = 'difficult',
+    description = "Empty - only SHB and IDB, but repeated so multiple SHB",
 }
 
 

@@ -80,7 +80,6 @@ local function compile_test(num, big_endian)
     local testname = string.format("test%03d", num)
 
     local test = require (testname)
-    --local test = tests[num]
     assert(type(test) == 'table', testname .. ".lua did not return a table: " .. type(test))
 
     test.testname = testname
@@ -175,11 +174,11 @@ local function run_test(num, directory)
 end
 
 
-local function do_tests(start_num, end_num, big_endian)
+local function do_tests(test_nums, big_endian)
     local directory = "output_le"
     if big_endian then directory = "output_be" end
 
-    for num = start_num, end_num do
+    for _, num in ipairs(test_nums) do
         print(string.format("Generating test file test#%03d.pcapng", num))
         compile_test(num, big_endian)
         describe_test(num, directory)
@@ -188,19 +187,44 @@ local function do_tests(start_num, end_num, big_endian)
 end
 
 
+local function execute(test_num)
+    local test_nums = {}
+
+    if test_num then
+        test_nums[1] = test_num
+    else
+        -- figure out the numbers
+        for filename in Dir.open("tests", ".lua") do
+            local num = filename:match("^test(%d+)%.lua$")
+            if num then
+                test_nums[#test_nums + 1] = tonumber(num)
+            end
+        end
+        table.sort(test_nums)
+    end
+
+    do_tests(test_nums)
+    -- clear tests
+    tests = {}
+
+    -- do it again in big endian
+    print("\nGenerating same tests in big endian format")
+    do_tests(test_nums, true)
+end
+
+
 --------------------------------------------------------------------------------
 -- main section
 --------------------------------------------------------------------------------
 
-local start_num, end_num = 1, 12
+local test_num
 
 
 if #args > 0 then
     -- user specified a specific test number
     local arg = tonumber(args[1])
     if arg then
-        start_num = arg
-        end_num   = arg
+        test_num = arg
         print(string.format("Generating only test #%03d", arg))
     else
         error("Argument is not a number: " .. args[1])
@@ -211,12 +235,7 @@ end
 
 
 -- do it!
-do_tests(start_num, end_num)
--- clear tests
-tests = {}
--- do it again in big endian
-print("\nGenerating same tests in big endian format")
-do_tests(start_num, end_num, true)
+execute(test_num)
 
 
 print("\nFinished generating tests")
