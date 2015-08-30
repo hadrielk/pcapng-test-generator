@@ -36,10 +36,16 @@ function test:compile()
             :addOption('comment', self.testname),
         idb0,
         idb1,
-        block.ISB(idb1, timestamp),
-        block.ISB(idb0),
+        block.ISB(idb1, timestamp)
+            :addOption( block.OptionFormat ('isb_starttime', "I4 I4", { timestamp:higher(), timestamp:lower() }) )
+            :addOption( block.OptionFormat ('isb_endtime',   "I4 I4", { timestamp:higher(), (timestamp + 1000):lower() }) )
+            :addOption( block.OptionFormat ('isb_ifdrop',    "E", UInt64(10)) ),
+        block.ISB(idb0, timestamp)
+            :addOption( block.OptionFormat ('isb_starttime', "I4 I4", { timestamp:higher(), timestamp:lower() }) )
+            :addOption( block.OptionFormat ('isb_endtime',   "I4 I4", { timestamp:higher(), (timestamp + 1000):lower() }) )
+            :addOption( block.OptionFormat ('isb_ifdrop',    "E", UInt64(10)) ),
         idb2,
-        block.ISB(idb2, timestamp + 1000)
+        block.ISB(idb2, timestamp)
             :addOption( block.OptionFormat ('isb_starttime', "I4 I4", { timestamp:higher(), timestamp:lower() }) )
             :addOption( block.OptionFormat ('isb_endtime',   "I4 I4", { timestamp:higher(), (timestamp + 1000):lower() }) )
             :addOption( block.OptionFormat ('isb_ifdrop',    "E", UInt64(10)) )

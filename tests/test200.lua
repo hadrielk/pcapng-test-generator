@@ -28,13 +28,13 @@ function test:compile()
     self.blocks = {
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
             :addOption('comment', self.testname),
-        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
+        block.IDB(0, input.linktype.ETHERNET, 96, "eth0"),
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
             :addOption('comment', self.testname),
-        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
+        block.IDB(0, input.linktype.ETHERNET, 0, "eth0"),
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
             :addOption('comment', self.testname),
-        block.IDB(0, input.linktype.ETHERNET, 96, "silly ethernet interface"),
+        block.IDB(0, input.linktype.NULL, 128, "null1"),
     }
 end
 

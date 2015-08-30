@@ -123,6 +123,15 @@ function Defines:setBigEndian(is_big)
 end
 
 
+function Defines:switchEndian()
+    if self.endian == ">" then
+        self.endian = "<"
+    else
+        self.endian = ">"
+    end
+end
+
+
 function Defines:getEndian()
     return self.endian
 end
