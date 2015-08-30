@@ -19,7 +19,7 @@ local input = require "input"
 
 
 local test = {
-    category    = 'advanced',
+    category    = 'difficult',
     description = "ISBs with various options, in different SHB sections",
 }
 

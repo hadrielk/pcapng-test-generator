@@ -1,5 +1,5 @@
 Description: ISBs with various options, in different SHB sections
-Category:    advanced
+Category:    difficult
 
 Block counts:
 	EPB: 3

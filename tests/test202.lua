@@ -20,7 +20,7 @@ local Defines = require "defines"
 
 
 local test = {
-    category    = 'advanced',
+    category    = 'difficult',
     description = "Multiple SHB sections of different endianness, all other blocks",
 }
 

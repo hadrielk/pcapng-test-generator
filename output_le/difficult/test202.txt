@@ -1,5 +1,5 @@
 Description: Multiple SHB sections of different endianness, all other blocks
-Category:    advanced
+Category:    difficult
 
 Block counts:
 	CB: 1
