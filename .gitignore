@@ -1,3 +1,7 @@
-#include pcapng and pcap files
+# include pcapng and pcap files
 !*.pcap
 !*.pcapng
+
+# ignore Mac files
+.DS_Store
+

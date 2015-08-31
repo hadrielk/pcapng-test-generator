@@ -28,7 +28,7 @@ local timestamp = UInt64(0x64ca47aa, 0x0004c397)
 
 function test:compile()
     local idb0 = block.IDB(0, input.linktype.ETHERNET, 96, "eth0")
-    local idb1 = block.IDB(1, input.linktype.NULL, 0, "lo0")
+    local idb1 = block.IDB(1, input.linktype.ETHERNET, 128, "en1")
 
     self.blocks = {
         block.SHB("Apple MBP", "OS-X 10.10.5", "pcap_writer.lua")
